@@ -1,0 +1,17 @@
+library(dplyr)
+library(fastDummies)
+library(anytime)
+library(ggplot2)
+library(hrbrthemes)
+library(plyr)
+library(zoo)
+library(cowplot)
+library(recommenderlab)
+library(reshape2)
+library(sparsesvd)
+
+# Data pre-processing
+df_questions = read.csv("/Users/ue2121/Desktop/Amine/data/questions.csv")
+df_questions$timestamp = as.POSIXct(df_questions$event_timestamp/1000000, origin="1970-01-01")
+df_questions$correct_string <- as.integer(as.logical(df_questions$correct_string))
+df_questions1 = mutate(df_questions, correct_sum = coalesce(correct_double,correct_string))
